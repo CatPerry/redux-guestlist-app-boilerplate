@@ -42,6 +42,22 @@ const globalReducer = handleActions({
         }
       }
     })
+  },
+  DECLINE_GUEST: (prevState, action) => {
+    return Object.assign({}, prevState, {
+      numConfirmed:
+        prevState.guestList[action.payload] &&
+        prevState.guestList[action.payload].confirmed
+          ? prevState.numConfirmed - 1
+          : prevState.numConfirmed,
+      guestList: {
+        ...prevState.guestList,
+        [action.payload]: {
+          confirmed: false,
+          declined: true
+        }
+      }
+    });
   }
 }, initialState);
 
